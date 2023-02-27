@@ -624,7 +624,7 @@ def main():
 
   start = time.time()
   trimap_path = image_path[:len(image_path)-4] + '_trimap.png'
-  alpha_path = image_path[:len(image_path)-4] + '_alpha.png'
+  alpha_path = image_path[:len(image_path)-4] + '_result.png'
 
   trimap =  cv.imread(trimap_path,0).astype(np.int32)
   width = trimap.shape[1]
