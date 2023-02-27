@@ -330,7 +330,7 @@ def prepare(height,width,image, trimap,Tu,image_info):
 def sampling(F,B,width,height,tp,trimap):
     KG = 4
     a=90
-    b=17
+    b=29
 
     x = tp[0]
     y = tp[1]
