@@ -11,10 +11,10 @@
 
 Ensure that you possess a CUDA-capable GPU.
 
-- Prepare an image along with its corresponding trimap, both of which should be in PNG format;
+- Prepare an image along with its corresponding trimap, both of which should be in `PNG` format;
   - Ensure that both the image and its trimap are located in the same directory;
-  - Ensure that the names of the image and its trimap adhere to the format, which is "image.png" and "image_trimap.png", respectively;
-- Launch the command "python3 http://demo.py" and input the path to your image when prompted;
+  - Ensure that the names of the image and its trimap adhere to the format, which is `xxx.png` and `xxx_trimap.png`, respectively;
+- Launch the command `python shared_matting.py` and input the path to your image when prompted;
 
 The results will be saved into the same directory as your own image.
 
