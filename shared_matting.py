@@ -336,24 +336,24 @@ def sampleGathering(image,width,height,trimap,tau0,tau1,tau2,tau3):
                   flag = True
 
       if (flag):
-          f = (image[tf_0][tf_1][0], image[tf_0][tf_1][1], image[tf_0][tf_1][2])
-          b = (image[tb_0][tb_1][0], image[tb_0][tb_1][1], image[tb_0][tb_1][2])
-          sigmaf = sigma_squre(tf_0, tf_1, height, width, image)
-          sigmab = sigma_squre(tb_0, tb_1, height, width, image)
-          tau0[tx][ty] = f
-          tau1[tx][ty] = b
-          tau2[tx][ty] = sigmaf
-          tau3[tx][ty] = sigmab
+        f = (image[tf_0][tf_1][0], image[tf_0][tf_1][1], image[tf_0][tf_1][2])
+        b = (image[tb_0][tb_1][0], image[tb_0][tb_1][1], image[tb_0][tb_1][2])
+        sigmaf = sigma_squre(tf_0, tf_1, height, width, image)
+        sigmab = sigma_squre(tb_0, tb_1, height, width, image)
+        tau0[tx][ty] = f
+        tau1[tx][ty] = b
+        tau2[tx][ty] = sigmaf
+        tau3[tx][ty] = sigmab
       else:
-          tau0[tx][ty] = (-1.0,-1.0,-1.0)
-          tau1[tx][ty] = (-1.0,-1.0,-1.0)
-          tau2[tx][ty] = -1.0
-          tau3[tx][ty] = -1.0
+        tau0[tx][ty] = (-1.0,-1.0,-1.0)
+        tau1[tx][ty] = (-1.0,-1.0,-1.0)
+        tau2[tx][ty] = -1.0
+        tau3[tx][ty] = -1.0
     else:
-          tau0[tx][ty] = (-1.0,-1.0,-1.0)
-          tau1[tx][ty] = (-1.0,-1.0,-1.0)
-          tau2[tx][ty] = -1.0
-          tau3[tx][ty] = -1.0
+      tau0[tx][ty] = (-1.0,-1.0,-1.0)
+      tau1[tx][ty] = (-1.0,-1.0,-1.0)
+      tau2[tx][ty] = -1.0
+      tau3[tx][ty] = -1.0
 
 @cuda.jit
 def refineSample(image, width, height, trimap, tau0, tau1, tau2, tau3, info0, info1, info2, info3):
@@ -381,7 +381,7 @@ def refineSample(image, width, height, trimap, tau0, tau1, tau2, tau3, info0, in
         for k in range(i1, i2 + 1):
           for l in range(j1, j2 + 1):
 
-            temp = trimap[k][l];
+            temp = trimap[k][l]
             if (temp == 0 or temp == 255):
               continue
 
@@ -437,26 +437,26 @@ def refineSample(image, width, height, trimap, tau0, tau1, tau2, tau3, info0, in
         sb = 0
 
         for k in range(num):
-          fb += tau0[p_0[k]][p_1[k]][0]
+          fr += tau0[p_0[k]][p_1[k]][0]
           fg += tau0[p_0[k]][p_1[k]][1]
-          fr += tau0[p_0[k]][p_1[k]][2]
-          bb += tau1[p_0[k]][p_1[k]][0]
+          fb += tau0[p_0[k]][p_1[k]][2]
+          br += tau1[p_0[k]][p_1[k]][0]
           bg += tau1[p_0[k]][p_1[k]][1]
-          br += tau1[p_0[k]][p_1[k]][2]
+          bb += tau1[p_0[k]][p_1[k]][2]
           sf += tau2[p_0[k]][p_1[k]]
           sb += tau3[p_0[k]][p_1[k]]
 
-        fb /= (num + 1E-10)
-        fg /= (num + 1E-10)
         fr /= (num + 1E-10)
-        bb /= (num + 1E-10)
-        bg /= (num + 1E-10)
+        fg /= (num + 1E-10)
+        fb /= (num + 1E-10)
         br /= (num + 1E-10)
+        bg /= (num + 1E-10)
+        bb /= (num + 1E-10)
         sf /= (num + 1E-10)
         sb /= (num + 1E-10)
 
-        fc = (fb, fg, fr)
-        bc = (bb, bg, br)
+        fc = (fr, fg, fb)
+        bc = (br, bg, bb)
         pc = image[tx][ty]
         df = Dc(pc, fc)
         db = Dc(pc, bc)
@@ -504,7 +504,7 @@ def localSmooth(image, width, height, trimap, info0, info1, info2, info3, final)
 
   if tx < height and ty < width:
     if (trimap[tx][ty] != 0 and trimap[tx][ty] != 255):
-      i1 = max(0, int(tx - r));
+      i1 = max(0, int(tx - r))
       i2 = min(int(tx + r), height - 1)
       j1 = max(0, int(ty - r))
       j2 = min(int(ty + r), width - 1)
